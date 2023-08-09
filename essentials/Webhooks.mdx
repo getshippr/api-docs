@@ -1,0 +1,57 @@
+---
+title: 'Webhooks'
+description: 'Reliable and secured webhooks'
+icon: 'link'
+---
+
+### Basic usage
+
+Shippr comes with its own webhook infrastructure that allows you to send any payload to Shippr and it will take care of forwarding it.
+
+```
+https://push.getshippr.com/hooks/YOUR_CHANNEL?apiKey=YOUR_KEY&appId=YOUR_APP
+```
+
+<CodeGroup>
+      ```sh using CURL
+      curl -X POST -H "Content-Type: application/json" -d '{"bar": "foo"}' "https://push.getshippr.com/hooks/my-channel-test?apiKey=YOUR_KEY&appId=YOUR_APP"
+      ```
+      ```js using fetch
+fetch(`https://push.getshippr.com/hooks/${channelId}?apiKey=${apiKey}&appId=${appId}`,{
+        method: "POST",
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: JSON.stringify({ foo: "bar"}),
+    });
+
+          ```
+    </CodeGroup>
+### Authentication
+
+In your [dashboard's API Key section](https://www.getshippr.com/apikeys), we provide your account with an API key and application ID
+
+
+### Accessing those events
+
+By using `@shippr/client`, you can access webhook realtime anywhere in your code
+
+#### Example with slack
+<Frame>
+  <img src="/images/slack_example.png" />
+</Frame> 
+All slack events triggered by your buttons can be received via
+
+ ```js
+
+    import shippr from "@shippr/client"
+
+    const client = shippr("APPID", "APIKEY")
+    const myWatcher = client.subscribe("my-channel")
+    myWatcher.on((data, err) => {
+        doSomethingFun()
+    })
+
+          ```

@@ -1,0 +1,40 @@
+---
+title: 'React'
+description: 'We have a growing list of [built-in React components](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/) built on top of our infrastructure'
+icon: 'react'
+---
+
+## Add Shippr to your React project
+
+<CodeGroup>
+```js YARN
+yarn add @shippr/react
+```
+```js NPM
+npm install @shippr/react
+```
+</CodeGroup>
+
+
+
+
+```jsx simple presence component
+import React from "react"
+import { ChannelPresence } from "@shippr/react"
+
+export default function Demo() {
+  return (
+    <div>
+      <ChannelPresence
+        channelId="my-channel"
+        apiKey="APIKEY"
+        appId="APPID"
+        mode="stack"
+        stackLimit={5}
+      />
+    </div>
+  )
+}
+
+          ```
+

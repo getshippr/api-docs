@@ -1,0 +1,120 @@
+---
+title: 'UI Components'
+description: 'Growing list of UI Components'
+icon: 'react'
+---
+
+<Note>We are working on adding more! Add your own suggestions [here](https://github.com/getshippr/shippr-react)</Note>
+
+## Presence Indicators
+
+#### Simple ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/docs/channelpresence--docs))
+
+```jsx
+<ChannelPresence
+    channelId="my-channel"
+    apiKey="APIKEY"
+    appId="APPID"
+    mode="simple"
+/>
+```
+#### Vertical Stacked ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/story/channelpresence--vertical-stacked))
+
+```jsx
+<ChannelPresence
+    channelId="my-channel"
+    apiKey="APIKEY"
+    appId="APPID"
+    mode="stacked"
+    position="vertical"
+    stackLimit={5}
+/>
+```
+#### Horizontal Stacked ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/story/channelpresence--stacked))
+
+```jsx
+<ChannelPresence
+    channelId="my-channel"
+    apiKey="APIKEY"
+    appId="APPID"
+    mode="stacked"
+    position="horizontal"
+    stackLimit={5}
+/>
+```
+#### Custom Layout ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/story/channelpresence--custom-layout))
+
+```jsx
+<ChannelPresence
+    channelId="my-channel"
+    apiKey="APIKEY"
+    appId="APPID"
+    customLayout={(data: any[]) => {
+        return <div className="text-indigo-500">{data.length} users</div>;
+    }}
+/>
+```
+## Message
+#### Simple ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/story/message--from-template))
+```jsx
+<Message
+    apiKey="APIKEY"
+    appId="APPID"
+    channelId="my-channel"
+    template={{type: "basic}}
+    initialData={{title: "foo", body: "bar"}}
+/>
+```
+#### Custom Layout ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/story/message--custom-layout))
+```jsx
+<Message
+    apiKey="APIKEY"
+    appId="APPID"
+    channelId="my-channel"
+    initialData={{title: "foo", body: "bar"}}
+    customLayout={(data: any) => {
+        return (
+            <div className="text-indigo-500 flex flex-wrap">
+                title: {data?.title}
+                body: {data?.body}
+            </div>)
+        }
+    }
+/>
+```
+
+## Multi Cursors
+
+#### Simple ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/story/multi-cursor--simple))
+```jsx
+<MultiCursorsWidget
+        apiKey="APIKEY"
+        appId="APPID"
+        channelId="my-channel"
+        name={userName}
+      >
+    <div className="w-80 h-80"></div>
+</MultiCursorsWidget>
+```
+#### Custom Cursors ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/story/multi-cursor--custom-layout))
+
+```jsx
+<MultiCursorsWidget
+        apiKey="APIKEY"
+        appId="APPID"
+        channelId="my-channel"
+        name={userName}
+        customLayout={(user: any) => {
+            return (
+                <>
+                <img src="./path/mycursor.png" />
+                <span className="text-xs">{user.name}</span>
+                </>
+            );
+    }}
+      >
+        <div className="w-80 h-80"></div>
+</MultiCursorsWidget>
+```
+
+<Note>We are working on adding more! Add your own suggestions [here](https://github.com/getshippr/shippr-react)</Note>

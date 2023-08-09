@@ -1,0 +1,6 @@
+{
+  "name": "ShipprDocs",
+  "engines": {
+    "node": "19.9.0"
+  }
+}
