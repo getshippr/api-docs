@@ -16,6 +16,52 @@ npm install @shippr/react
 </CodeGroup>
 
 
+## Shippr's shared state
+
+Shippr provides a React hook hides the complexity of connecting to a channel and maintaining the value
+
+<CodeGroup>
+
+```jsx with useState
+import React, { useState } from "react"
+import shippr from "@shippr/react"
+const client = shippr("APPID", "APIKEY")
+
+export default function Demo() {
+  const [value, setValue] = useState(0)
+  useEffect(() => {
+    const myWatcher = client.subscribe("my-update")
+    myWatcher.on((data, err) => {
+        setValue(data)
+    })
+  }, [])
+  
+  return (
+    <div>
+      {value}
+    </div>
+  )
+}
+
+```
+```jsx with useSharedState
+import React from "react"
+import { useSharedState } from "@shippr/react"
+
+export default function Demo() {
+  const [value, setValue] = useSharedState(0, "my-shared-state-channel")
+  return (
+    <div>
+      {value}
+    </div>
+  )
+}
+
+```
+</CodeGroup>
+
+
+## Builtin Components
 
 
 ```jsx simple presence component
@@ -37,4 +83,5 @@ export default function Demo() {
 }
 
           ```
+
 
