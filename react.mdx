@@ -29,11 +29,15 @@ const client = shippr("APPID", "APIKEY")
 
 export default function Demo() {
   const [value, setValue] = useState(0)
+  
   useEffect(() => {
-    const myWatcher = client.subscribe("my-update")
-    myWatcher.on((data, err) => {
-        setValue(data)
-    })
+    const fetch = async () => {
+      const myWatcher = await client.subscribe("my-update")
+      myWatcher.on((data, err) => {
+          setValue(data)
+      })
+    }
+    fetch()
   }, [])
   
   return (

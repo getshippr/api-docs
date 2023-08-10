@@ -49,7 +49,7 @@ All slack events triggered by your buttons can be received via
     import shippr from "@shippr/client"
 
     const client = shippr("APPID", "APIKEY")
-    const myWatcher = client.subscribe("my-channel")
+    const myWatcher = await client.subscribe("my-channel")
     myWatcher.on((data, err) => {
         doSomethingFun()
     })
