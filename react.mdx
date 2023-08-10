@@ -46,7 +46,8 @@ export default function Demo() {
 ```
 ```jsx with useSharedState
 import React from "react"
-import { useSharedState } from "@shippr/react"
+import reactClient from "@shippr/react"
+const { useSharedState } = reactClient("APPID", "APIKEY")
 
 export default function Demo() {
   const [value, setValue] = useSharedState(0, "my-shared-state-channel")
