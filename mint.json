@@ -41,10 +41,6 @@
       "group": "Essentials",
       "pages": ["essentials/Authentication", "essentials/PubSub", "essentials/Stream","essentials/Webhooks","essentials/UIComponents"]
     },
-    {
-      "group": "Examples",
-      "pages": ["examples/Charts"]
-    }
   ],
   "footerSocials": {
     "github": "https://github.com/getshippr"
