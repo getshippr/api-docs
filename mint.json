@@ -35,7 +35,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["quickstart", "SDKs", "React"]
+      "pages": ["quickstart", "SDKs", "react"]
     },
     {
       "group": "Essentials",
