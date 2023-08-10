@@ -40,7 +40,7 @@
     {
       "group": "Essentials",
       "pages": ["essentials/Authentication", "essentials/PubSub", "essentials/Stream","essentials/Webhooks","essentials/UIComponents"]
-    },
+    }
   ],
   "footerSocials": {
     "github": "https://github.com/getshippr"
