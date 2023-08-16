@@ -4,4 +4,34 @@ description: 'Create your own streams'
 icon: 'globe'
 ---
 
-## We are working on it!
+## What is the problem ?
+
+Most information if available to developers through basic API calls. In a use case where you need real time information and 
+the source of information is only available via API calls, the developer needs to write it's own logic to create this real time experience with long polling to constantly push data to the client.
+Long polling has its caviats:
+
+- Resource Intensive: Long polling keeps a connection open for an extended period, tying up server resources and potentially limiting the number of concurrent connections the server can handle
+- Complexity: Implementing long polling requires more complex server-side code compared to other techniques like WebSockets or Server-Sent Events (SSE). 
+- Connection Drops: Long polling connections can be susceptible to network issues, such as dropped connections or transient disruptions. When these issues occur, clients may need to reestablish connections, adding to the overall latency.
+- Server Load: ong polling can lead to higher server load compared to other communication methods. 
+
+### Create your streams
+
+With Shippr, you can create your own stream by giving the endpoint of the resource you are trying to get access to and will give you access to your own pub/sub, and you will only get results when the resource actually changes!
+
+
+### Example: I need realtime status of Square services, I use their API to power my business.
+
+Fill a form about your API endpoint and the event you are trying to access
+
+<Frame>
+  <img src="/images/square1.png" />
+</Frame> 
+
+Once it is done, Shippr streams update and you can automatically access it in your code, front end or backend using `@shippr/client`
+
+<Frame>
+  <img src="/images/square2.png" />
+</Frame> 
+
+Done!

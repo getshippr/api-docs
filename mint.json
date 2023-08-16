@@ -40,6 +40,10 @@
     {
       "group": "Essentials",
       "pages": ["essentials/Authentication", "essentials/PubSub", "essentials/Stream","essentials/Webhooks","essentials/UIComponents"]
+    },
+    {
+      "group": "Build",
+      "pages": ["examples/chart"]
     }
   ],
   "footerSocials": {

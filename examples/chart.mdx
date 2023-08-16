@@ -1,0 +1,52 @@
+---
+title: 'Realtime charts'
+icon: 'chart-simple'
+---
+
+#### Example with [Tremor](https://github.com/tremorlabs/tremor)
+
+Tremor makes it easy to build your dashboard using React. 
+Let's make a simple realtime [Card](https://www.tremor.so/docs/components/card) displaying 
+the price of the bitcoin (from own public stream Bitcoin realtime price)
+
+Here is a simple Card component
+
+```jsx
+
+import { Card, Metric, Text } from "@tremor/react";
+import numeral from 'numeral'
+
+export default function BitcoinCard() {
+  const [value, setValue] = useState(34743)
+  return (
+    <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo">
+      <Text>Bitcoin</Text>
+      <Metric>{numeral(value).format("$0,0.00")}</Metric>
+    </Card>
+  )
+}
+```
+<Frame>
+  <img src="/images/chart.png" />
+</Frame> 
+
+#### Adding BTC realtime prices
+
+The hook `useSharedState` maintains state across client and embeds pub/sub logic
+
+```jsx
+import { Card, Metric, Text } from "@tremor/react";
+import shippr from '@shippr/react'
+import numeral from 'numeral'
+const { useSharedState } = shippr('your app id', 'your api key')
+
+export default function BitcoinCard() {
+  const [btcData, setBtcData] = useSharedState(0, "public:btc:current-price")
+  return (
+    <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo">
+      <Text>Bitcoin</Text>
+      <Metric>{numeral(btcData.coin?.price).format("$0,0.00")}</Metric>
+    </Card>
+  )
+}
+```
