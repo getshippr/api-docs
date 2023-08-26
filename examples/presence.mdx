@@ -1,0 +1,170 @@
+---
+title: 'Presence indicator'
+icon: 'users'
+---
+
+## Presence indicator 101
+
+Presence indicators comes quickly to mind when it comes to real time application.
+A presence indicator is what you see on google docs for instance: a list of users 
+that are currently browsing the page.
+
+<Note>As of today, our built in components only supports React but you can easily adapt it to other Framework. [Contact us!](https://join.slack.com/t/shippr-workspace/shared_invite/zt-223vp3dj8-wYjTq3RfENI0HxCrNGa0ng)</Note>
+
+
+### What do you need
+
+
+1. Your [Application ID and API key](https://www.getshippr.com/apikeys)
+
+<Warning>Don't forget to whitelist your domain if you are using your API key in production</Warning>
+
+2. A channel name
+
+To instanciate your presence indicator, you will need a channel name (which will under the hood indentify your websocket connection)
+
+example: "myawesomepage"
+
+3. Shippr/react
+
+Shippr has a collection of widgets on top of its infrastructure.
+
+<CodeGroup>
+```js YARN
+yarn add @shippr/react
+```
+```js NPM
+npm install @shippr/react
+```
+</CodeGroup>
+
+### Simple mode
+
+This widget has multiple [options](https://github.com/getshippr/shippr-react/blob/main/react/components/ChannelPresence/index.tsx), let's start with a simple one.
+
+```jsx
+<ChannelPresence
+    channelId="myawesomepage"
+    apiKey="APIKEY"
+    appId="APPID"
+    mode="simple"
+/>
+```
+
+<Frame>
+  <img src="/images/presence/simple.png" />
+</Frame>
+
+#### Display for anonymous users 
+If your users are anonymous but still want to display fake images, we provide avatars
+
+```jsx
+<ChannelPresence
+    channelId="myawesomepage"
+    apiKey="APIKEY"
+    appId="APPID"
+    mode="stacked"
+/>
+```
+
+<Frame>
+  <img src="/images/presence/stacked.png" />
+</Frame>
+
+
+#### Display for known users 
+
+If your users are not anonymous, you can instantiate the widget with a user identifier, like a user ID or an email. This then can be used to display actual users avatar or names. Here how you can do it:
+
+```jsx
+<ChannelPresence
+    channelId="myawesomepage"
+    apiKey="APIKEY"
+    appId="APPID"
+    mode="stacked"
+    userId={currentUser.id}
+    customUserLayout={(user) => {
+      const imgUrl = imageFromUserId(p.userId);
+      return <img src={imgUrl} />
+    }}
+/>
+```
+You can customize the user's vignette with `customUserLayout`.
+
+<Note>
+Here, `imageFromUserId` is your own logic to retrieve the user's image URL from the user Id.
+We recommand to pre-load this mapping on page load
+</Note>
+
+### Advanced mode
+
+The previous mode is usually too simple. You also want to know the number of connection and the last time a specific user has accessed the document.
+
+This part is tricky to implement because you need to persist the data somewhere, usually a database. Fortunately, Shippr takes care of this.
+The `users` variable contains all the information you need:
+
+```
+export type UserPresence = {
+  userId: string;
+  state: "connected" | "disconnected";
+  updatedAt: number;
+  connectionCount: number;
+};
+````
+
+If you enable the tooltip, you can have access to a templated display
+
+
+```jsx
+<ChannelPresence
+    channelId="myawesomepage"
+    apiKey="APIKEY"
+    appId="APPID"
+    mode="stacked"
+    userId={currentUser.id}
+    showTooltip={true}
+    tooltipPosition={'left}
+    customUserLayout={(user) => {
+      const imgUrl = imageFromUserId(p.userId);
+      return <img src={imgUrl} />
+    }}
+/>
+```
+
+<Frame>
+  <img src="/images/presence/tooltip.png" />
+</Frame>
+
+<Note>We persist any users that accessed the ressource, and maintain the current state: connected or not. If you want to only display connected users, your can use the `filterOnActive` attribute</Note>
+
+### Full customization
+
+You can customize your widget with 3 different attributes
+
+- `customUserLayout` will overide the user's picture
+- `customTooltip` will overide the tooltip
+- `customLayout` will overide the **entire** component
+
+### Events
+
+- `onConnect` will be triggered when a new user joins the page.
+For instance, you could send a slack notification or an inapp notification notifying that a specific user is on a page (a contract to sign for instance!) 
+
+- `onDisconnect` will be triggered when a user leaves the page.
+
+
+
+### How is the state maintained
+
+- **user.state = 'connected'**
+
+Connected means a connection was instantiated: the user opened the page and left it open.
+
+<Note>If the user kept the page opened and is on another tab, the state will still be connected</Note>
+
+- **user.state = 'disconnected'**
+
+Disconnected means the connection previously opened has closed. This can happen in different ways:
+1. The window closed
+2. The page changed
+3. A backend error occured (we disconnect as a safe guard)

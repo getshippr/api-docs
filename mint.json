@@ -21,12 +21,15 @@
   "topbarLinks": [
     {
       "name": "Github",
-      "url": "https://github.com/getshippr/shippr-react"
+      "url": "https://github.com/getshippr/shippr"
+    },{
+      "name": "Community",
+      "url": "https://join.slack.com/t/shippr-workspace/shared_invite/zt-223vp3dj8-wYjTq3RfENI0HxCrNGa0ng"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://getshippr.com/dashboard"
+    "url": "https://www.getshippr.com/dashboard"
   },
   "tabs": [
     
@@ -42,11 +45,12 @@
       "pages": ["essentials/Authentication", "essentials/PubSub", "essentials/Stream","essentials/Webhooks","essentials/UIComponents"]
     },
     {
-      "group": "Build",
-      "pages": ["examples/chart"]
+      "group": "Tutorials",
+      "pages": ["examples/chart", "examples/presence"]
     }
   ],
   "footerSocials": {
-    "github": "https://github.com/getshippr"
+    "github": "https://github.com/getshippr",
+    "slack": "https://join.slack.com/t/shippr-workspace/shared_invite/zt-223vp3dj8-wYjTq3RfENI0HxCrNGa0ng"
   }
 }
