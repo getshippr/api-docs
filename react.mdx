@@ -86,6 +86,8 @@ export default function Demo() {
 
 ### usePresence Hook
 
+usePresence is a hook giving realtime events about all individuals subscribing to a channel
+
 ```jsx
 const [users, setUsers, addedUsers, removedUsers] = usePresence([], channelId);
 /* users will be updated when someting joins or disconnect */
@@ -94,15 +96,11 @@ const [users, setUsers, addedUsers, removedUsers] = usePresence([], channelId);
 
   useEffect(() => {
     /* addedUsers will help you trigger events when someone disconnects */
-    if (addedUsers.length && onConnect) {
-      onConnect(addedUsers);
-    }
+    doSomething(addedUsers)
   }, [addedUsers]);
 
   useEffect(() => {
     /* addedUsers will help you trigger events when someone disconnects */
-    if (removedUsers.length && onDisconnect) {
-      onDisconnect(removedUsers);
-    }
+    doSomethingElse(removedUsers)
   }, [removedUsers]);
 ```
