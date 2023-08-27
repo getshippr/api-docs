@@ -4,7 +4,7 @@ description: 'We provide multiple level of authentication'
 icon: 'lock'
 ---
 
-#### API Keys
+## API Keys
 
 In your [dashboard's API Key section](https://www.getshippr.com/apikeys), we provide your account with an API key and application ID
 that you have to use to authenticate a call to our servers
@@ -13,23 +13,99 @@ that you have to use to authenticate a call to our servers
 const client = shippr("APPID", "APIKEY")
 ```
 
-#### Domains whitelisting
+
+## Websocket connections
+
+`@shippr/client` is built on top of `@shippr/supersocket` - a drop in replacement for our Websocket.
+
+The Websocket implementation has known "issues": connection droping, lack of standardisation, debugging difficult and well as lack of security features.
+A few NPM package already exists about those issues but most of the are unmaintained so we decided to build [our own](https://github.com/getshippr/supersocket) (give us a star!)
+
+
+### Domains whitelisting
 
 On top of this, we ask you to provide a list of domain to whitelists. This will reject any HTTP/WS calls
 made from another domain than the one you specificall granted.
 
 <Note>Don't forget to allow localhost for testing!</Note>
 
+## Authentication
 
-#### CSRF protection
+### Authentication with cookie base authentication
 
-Soon!
+```jsx
+import shippr from '@shippr/client'
 
+const shipprClient = shippr("appId", "apiKey", { 
+    wsOptions: {
+        authenticate: {
+            endpoint: "/your-auth-endpoint-api",
+            headers: {
+                "crsf cookie": value,
+            },
+        },
+    }
+})
+```
 
-#### Generating User IDs
+### Authentication with Handshake pattern
+
+```jsx
+import shippr from '@shippr/client'
+
+const shipprClient = shippr("appId", "apiKey", { 
+    wsOptions: {
+        authenticate: {
+            endpoint: "/your-auth-endpoint-api",
+            data: {
+                "client id": value,
+                "client pwd": value,
+            },
+        },
+    }
+})
+```
+
+## Encryption
+
+Encryption/decryption is possible, through the [Cypher algorithm](https://cryptojs.gitbook.io/docs/#ciphers)
+
+```jsx
+import shippr from '@shippr/client'
+
+const shipprClient = shippr("appId", "apiKey", { 
+    wsOptions: {
+        encryptKey: "my secret key",
+    }
+})
+```
+
+## Generating User IDs
 
 In order to authenticate/track/log, we assign a random RFC version 4 UUID to any request to our servers, which is internally used as a user ID
 
 <Note>You can pass your own identifier if necessary</Note>
 
- 
+ ## Inside your react application
+
+ You can pass the same parameter to the `@shippr/react` client:
+
+
+```jsx
+import shippr from '@shippr/client'
+
+export default function App({ Component, pageProps: { ...pageProps } }) {
+  return (
+    <ShipprProvider appId={"your_app_id"} apiKey={"your_api_key"} options={{
+        authenticate: {
+            endpoint: "/your-auth-endpoint-api",
+            headers: {
+                'crsf cookie': "value",
+            },
+        },
+    }}>
+        <Component {...pageProps} />
+    </ShipprProvider>
+  )
+}
+```
