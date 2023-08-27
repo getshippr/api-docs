@@ -114,7 +114,7 @@ The previous mode is usually too simple. You also want to know the number of con
 This part is tricky to implement because you need to persist the data somewhere, usually a database. Fortunately, Shippr takes care of this.
 The `users` variable contains all the information you need:
 
-```
+```jsx
 export type UserPresence = {
   userId: string;
   state: "connected" | "disconnected";
