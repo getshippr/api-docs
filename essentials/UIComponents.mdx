@@ -13,8 +13,6 @@ icon: 'react'
 ```jsx
 <ChannelPresence
     channelId="my-channel"
-    apiKey="APIKEY"
-    appId="APPID"
     mode="simple"
 />
 ```
@@ -23,8 +21,6 @@ icon: 'react'
 ```jsx
 <ChannelPresence
     channelId="my-channel"
-    apiKey="APIKEY"
-    appId="APPID"
     mode="stacked"
     position="vertical"
     stackLimit={5}
@@ -35,8 +31,6 @@ icon: 'react'
 ```jsx
 <ChannelPresence
     channelId="my-channel"
-    apiKey="APIKEY"
-    appId="APPID"
     mode="stacked"
     position="horizontal"
     stackLimit={5}
@@ -47,8 +41,6 @@ icon: 'react'
 ```jsx
 <ChannelPresence
     channelId="my-channel"
-    apiKey="APIKEY"
-    appId="APPID"
     customLayout={(data: any[]) => {
         return <div className="text-indigo-500">{data.length} users</div>;
     }}
@@ -58,8 +50,6 @@ icon: 'react'
 #### Simple ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/story/message--from-template))
 ```jsx
 <Message
-    apiKey="APIKEY"
-    appId="APPID"
     channelId="my-channel"
     template={{type: "basic}}
     initialData={{title: "foo", body: "bar"}}
@@ -68,8 +58,6 @@ icon: 'react'
 #### Custom Layout ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/story/message--custom-layout))
 ```jsx
 <Message
-    apiKey="APIKEY"
-    appId="APPID"
     channelId="my-channel"
     initialData={{title: "foo", body: "bar"}}
     customLayout={(data: any) => {
@@ -88,8 +76,6 @@ icon: 'react'
 #### Simple ([example](https://main--64c9065f0cdd34cacb3c195a.chromatic.com/?path=/story/multi-cursor--simple))
 ```jsx
 <MultiCursorsWidget
-        apiKey="APIKEY"
-        appId="APPID"
         channelId="my-channel"
         name={userName}
       >
@@ -100,8 +86,6 @@ icon: 'react'
 
 ```jsx
 <MultiCursorsWidget
-        apiKey="APIKEY"
-        appId="APPID"
         channelId="my-channel"
         name={userName}
         customLayout={(user: any) => {

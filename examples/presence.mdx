@@ -38,6 +38,23 @@ npm install @shippr/react
 ```
 </CodeGroup>
 
+4. Wrap your application or component with `ShipprProvider`
+
+See documentation [here](https://developers.getshippr.com/react#shipprprovider)
+
+
+```jsx
+import { ShipprProvider } from '@shippr/react'
+
+export default function App({ Component, pageProps: { ...pageProps } }) {
+  return (
+    <ShipprProvider appId={"your_app_id"} apiKey={"your_api_key"} options={{...options}}>
+        <Component {...pageProps} />
+    </ShipprProvider>
+  )
+}
+```
+
 ### Simple mode
 
 This widget has multiple [options](https://github.com/getshippr/shippr-react/blob/main/react/components/ChannelPresence/index.tsx), let's start with a simple one.
@@ -45,8 +62,6 @@ This widget has multiple [options](https://github.com/getshippr/shippr-react/blo
 ```jsx
 <ChannelPresence
     channelId="myawesomepage"
-    apiKey="APIKEY"
-    appId="APPID"
     mode="simple"
 />
 ```
@@ -61,8 +76,6 @@ If your users are anonymous but still want to display fake images, we provide av
 ```jsx
 <ChannelPresence
     channelId="myawesomepage"
-    apiKey="APIKEY"
-    appId="APPID"
     mode="stacked"
 />
 ```
@@ -79,8 +92,6 @@ If your users are not anonymous, you can instantiate the widget with a user iden
 ```jsx
 <ChannelPresence
     channelId="myawesomepage"
-    apiKey="APIKEY"
-    appId="APPID"
     mode="stacked"
     userId={currentUser.id}
     customUserLayout={(user) => {
@@ -118,8 +129,6 @@ If you enable the tooltip, you can have access to a templated display
 ```jsx
 <ChannelPresence
     channelId="myawesomepage"
-    apiKey="APIKEY"
-    appId="APPID"
     mode="stacked"
     userId={currentUser.id}
     showTooltip={true}
