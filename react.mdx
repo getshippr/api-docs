@@ -15,6 +15,24 @@ npm install @shippr/react
 ```
 </CodeGroup>
 
+## ShipprProvider
+
+To avoid having to have to add credentials everywhere, you need to wrapp your application with a ShipprProvider.
+
+For instance, if you are using Next, we recommend adding it in `_app.tsx`:
+
+```jsx
+import { ShipprProvider } from '@shippr/react'
+
+export default function App({ Component, pageProps: { ...pageProps } }) {
+  return (
+    <ShipprProvider appId={"your_app_id"} apiKey={"your_api_key"} options={{...options}}>
+        <Component {...pageProps} />
+    </ShipprProvider>
+  )
+}
+```
+
 
 ## useSharedState Hook
 
@@ -64,33 +82,5 @@ export default function Demo() {
 
 ```
 </CodeGroup>
-
-
-## Builtin Components
-
-Shippr has a growing list of components available [here](/essentials/UIComponents)
-<Frame>
-  <img src="/images/presenceIndicator.png" />
-</Frame> 
-
-```jsx simple presence component
-import React from "react"
-import { ChannelPresence } from "@shippr/react"
-
-export default function Demo() {
-  return (
-    <div>
-      <ChannelPresence
-        channelId="my-channel"
-        apiKey="APIKEY"
-        appId="APPID"
-        mode="stack"
-        stackLimit={5}
-      />
-    </div>
-  )
-}
-
-          ```
 
 
