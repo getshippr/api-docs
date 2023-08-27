@@ -33,29 +33,28 @@ export default function App({ Component, pageProps: { ...pageProps } }) {
 }
 ```
 
-## usePresence Hook
-
-
 ## useSharedState Hook
 
-Shippr provides a React hook hides the complexity of connecting to a channel and maintaining the value
+*Almost* drop in replacement to React `useState`.
+
+Under the hood, Shippr opens a connection and subscrive to a specific channel and update the value when a new one is received, and this for all the subscriber.
 
 <CodeGroup>
 
 ```jsx with useState
 import React, { useState } from "react"
-import shippr from "@shippr/react"
-const client = shippr("APPID", "APIKEY")
 
 export default function Demo() {
   const [value, setValue] = useState(0)
   
   useEffect(() => {
     const fetch = async () => {
-      const myWatcher = await client.subscribe("my-update")
-      myWatcher.on((data, err) => {
-          setValue(data)
-      })
+      const newValue = await fetchMyNewValue()
+      setTimeout(() => {
+        if(newValue !== value) {
+          setValue(newValue)
+        }
+      }, 1000)
     }
     fetch()
   }, [])
@@ -70,8 +69,7 @@ export default function Demo() {
 ```
 ```jsx with useSharedState
 import React from "react"
-import reactClient from "@shippr/react"
-const { useSharedState } = reactClient("APPID", "APIKEY")
+import { useSharedState } from "@shippr/react"
 
 export default function Demo() {
   const [value, setValue] = useSharedState(0, "my-shared-state-channel")
@@ -85,4 +83,25 @@ export default function Demo() {
 ```
 </CodeGroup>
 
+## usePresence Hook
 
+```jsx
+const [users, setUsers, addedUsers, removedUsers] = usePresence([], channelId);
+/* users will be updated when someting joins or disconnect */
+/* setUsers if you want to manually force the value for all connected clients */
+
+
+  useEffect(() => {
+    /* addedUsers will help you trigger events when someone disconnects */
+    if (addedUsers.length && onConnect) {
+      onConnect(addedUsers);
+    }
+  }, [addedUsers]);
+
+  useEffect(() => {
+    /* addedUsers will help you trigger events when someone disconnects */
+    if (removedUsers.length && onDisconnect) {
+      onDisconnect(removedUsers);
+    }
+  }, [removedUsers]);
+```
